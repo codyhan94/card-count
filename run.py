@@ -1,4 +1,6 @@
+import logging
 import sys
+
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import Qt
@@ -25,12 +27,12 @@ class PicButton(QAbstractButton):
         painter.setPen(Qt.GlobalColor.red)
         painter.drawPixmap(event.rect(), self.pixmap)
         numLocation = event.rect().topRight()
-        print(f'topRight: {numLocation}')
+        logging.debug(f'topRight: {numLocation}')
         center = event.rect().center()
-        print(f'center: {center}')
+        logging.debug(f'center: {center}')
         numLocation.setX(numLocation.x() - 12)
         numLocation.setY(numLocation.y() + 15)
-        print(f'text location: {numLocation}')
+        logging.debug(f'text location: {numLocation}')
         painter.drawText(numLocation, f'{self.count}')
 
     # def onClick(self):
@@ -73,6 +75,7 @@ button15 = PicButton(QPixmap("cards/red_joker.png"))
 button16 = PicButton(QPixmap("cards/ace_of_hearts.png"), count=0)
 button17 = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=0)
 
+logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 layout.addWidget(button14, 0, 0)
 layout.addWidget(button15, 0, 1)
 layout.addWidget(button16, 0, 2)
