@@ -22,6 +22,8 @@ class SuitButton(QAbstractButton):
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
             self.i = (self.i + 1) % len(self.pixmaps)
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.i = (self.i - 1) % len(self.pixmaps)
         self.update()
 
 
@@ -41,8 +43,8 @@ class PicButton(QAbstractButton):
         logging.debug(f'topRight: {numLocation}')
         center = event.rect().center()
         logging.debug(f'center: {center}')
-        numLocation.setX(numLocation.x() - 12)
-        numLocation.setY(numLocation.y() + 15)
+        numLocation.setX(numLocation.x() - 9)
+        numLocation.setY(numLocation.y() + 12)
         logging.debug(f'text location: {numLocation}')
         painter.drawText(numLocation, f'{self.count}')
 
@@ -77,9 +79,9 @@ button7 = PicButton(QPixmap("cards/7_of_spades.png"))
 button8 = PicButton(QPixmap("cards/8_of_spades.png"))
 button9 = PicButton(QPixmap("cards/9_of_spades.png"))
 button10 = PicButton(QPixmap("cards/10_of_spades.png"))
-button11 = PicButton(QPixmap("cards/jack_of_spades.png"))
-button12 = PicButton(QPixmap("cards/queen_of_spades.png"))
-button13 = PicButton(QPixmap("cards/king_of_spades.png"))
+button11 = PicButton(QPixmap("cards/jack_of_spades2.png"))
+button12 = PicButton(QPixmap("cards/queen_of_spades2.png"))
+button13 = PicButton(QPixmap("cards/king_of_spades2.png"))
 button14 = PicButton(QPixmap("cards/black_joker.png"))
 button15 = PicButton(QPixmap("cards/red_joker.png"))
 
@@ -111,6 +113,7 @@ window2 = QWidget()
 layout = QGridLayout(window2)
 
 aces = [
+    QPixmap("cards/red_joker.png"),
     QPixmap("cards/ace_of_spades.png"),
     QPixmap("cards/ace_of_hearts.png"),
     QPixmap("cards/ace_of_diamonds.png"),
