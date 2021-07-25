@@ -54,7 +54,6 @@ app = QApplication(sys.argv)
 window = QWidget()
 layout = QGridLayout(window)
 
-
 button1 = PicButton(QPixmap("cards/ace_of_spades.png"))
 button2 = PicButton(QPixmap("cards/2_of_spades.png"))
 button3 = PicButton(QPixmap("cards/3_of_spades.png"))
@@ -71,8 +70,13 @@ button13 = PicButton(QPixmap("cards/king_of_spades.png"))
 button14 = PicButton(QPixmap("cards/black_joker.png"))
 button15 = PicButton(QPixmap("cards/red_joker.png"))
 
+button16 = PicButton(QPixmap("cards/ace_of_hearts.png"), count=0)
+button17 = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=0)
+
 layout.addWidget(button14, 0, 0)
 layout.addWidget(button15, 0, 1)
+layout.addWidget(button16, 0, 2)
+layout.addWidget(button17, 0, 3)
 
 layout.addWidget(button1, 1, 0)
 layout.addWidget(button2, 1, 1)
