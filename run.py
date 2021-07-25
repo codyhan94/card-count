@@ -7,11 +7,22 @@ from PyQt6.QtCore import Qt
 
 # maybe implement with an on-map and off-map
 class SuitButton(QAbstractButton):
-    def __init__(self, pixmap, parent=None):
-        super(PicButton, self).__init__(parent)
-        self.pixmap = pixmap
-        self.count = count
-        self.pressed = False
+    def __init__(self, pixmaps=[], parent=None):
+        super(SuitButton, self).__init__(parent)
+        self.pixmaps = pixmaps
+        self.i = 0
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.drawPixmap(event.rect(), self.pixmaps[self.i])
+
+    def sizeHint(self):
+        return self.pixmaps[self.i].size() / 6
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.i = (self.i + 1) % len(self.pixmaps)
+        self.update()
 
 
 class PicButton(QAbstractButton):
@@ -97,8 +108,25 @@ layout.addWidget(button2, 2, 5)
 
 
 window2 = QWidget()
-layout = QHBoxLayout(window2)
-spades = SuitButton
+layout = QGridLayout(window2)
+
+aces = [
+    QPixmap("cards/ace_of_spades.png"),
+    QPixmap("cards/ace_of_hearts.png"),
+    QPixmap("cards/ace_of_diamonds.png"),
+    QPixmap("cards/ace_of_clubs.png"),
+]
+suits1 = SuitButton(pixmaps=aces)
+suits2 = SuitButton(pixmaps=aces)
+suits3 = SuitButton(pixmaps=aces)
+suits4 = SuitButton(pixmaps=aces)
+suits5 = SuitButton(pixmaps=aces)
+
+layout.addWidget(suits1, 0, 1)
+layout.addWidget(suits2, 1, 0)
+layout.addWidget(suits3, 1, 2)
+layout.addWidget(suits4, 2, 0)
+layout.addWidget(suits5, 2, 2)
 # layout.addWidget(button1, 2, 6)
 # def on_click():
 #     alert = QMessageBox()
@@ -108,4 +136,5 @@ spades = SuitButton
 # button.clicked.connect(on_click)
 
 window.show()
+window2.show()
 sys.exit(app.exec())
