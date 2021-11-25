@@ -12,6 +12,9 @@ class SuitButton(QAbstractButton):
         self.pixmaps = pixmaps
         self.i = 0
 
+    def reset(self):
+        self.i = 0
+
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.drawPixmap(event.rect(), self.pixmaps[self.i])
@@ -32,6 +35,7 @@ class PicButton(QAbstractButton):
         super(PicButton, self).__init__(parent)
         self.pixmap = pixmap
         self.count = count
+        self.start_count = self.count
 
         # self.pressed.connect(self.onClick)
 
@@ -47,6 +51,9 @@ class PicButton(QAbstractButton):
         numLocation.setY(numLocation.y() + 12)
         logging.debug(f'text location: {numLocation}')
         painter.drawText(numLocation, f'{self.count}')
+
+    def reset(self):
+        self.count = self.start_count
 
     # def onClick(self):
     #     if self.count > 0:
@@ -68,6 +75,7 @@ class PicButton(QAbstractButton):
 app = QApplication(sys.argv)
 window = QWidget()
 layout = QGridLayout(window)
+buttons = []
 
 button1 = PicButton(QPixmap("cards/ace_of_spades.png"))
 button2 = PicButton(QPixmap("cards/2_of_spades.png"))
@@ -85,8 +93,28 @@ button13 = PicButton(QPixmap("cards/king_of_spades2.png"))
 button14 = PicButton(QPixmap("cards/black_joker.png"))
 button15 = PicButton(QPixmap("cards/red_joker.png"))
 
-button16 = PicButton(QPixmap("cards/ace_of_hearts.png"), count=0)
-button17 = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=0)
+button16 = PicButton(QPixmap("cards/ace_of_hearts.png"))
+button17 = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=9)
+
+buttons = [
+    button1,
+    button2,
+    button3,
+    button4,
+    button5,
+    button6,
+    button7,
+    button8,
+    button9,
+    button10,
+    button11,
+    button12,
+    button13,
+    button14,
+    button15,
+    button16,
+    button17,
+]
 
 logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 layout.addWidget(button14, 0, 1)
@@ -125,6 +153,12 @@ suits3 = SuitButton(pixmaps=aces)
 suits4 = SuitButton(pixmaps=aces)
 suits5 = SuitButton(pixmaps=aces)
 
+buttons.append(suits1)
+buttons.append(suits2)
+buttons.append(suits3)
+buttons.append(suits4)
+buttons.append(suits5)
+
 layout.addWidget(suits1, 0, 1)
 layout.addWidget(suits2, 1, 0)
 layout.addWidget(suits3, 1, 2)
@@ -148,6 +182,14 @@ k_s = PicButton(QPixmap("cards/king_of_spades2.png"))
 k_h = PicButton(QPixmap("cards/king_of_hearts2.png"))
 k_d = PicButton(QPixmap("cards/king_of_diamonds2.png"))
 k_c = PicButton(QPixmap("cards/king_of_clubs2.png"))
+buttons.append(a_s)
+buttons.append(a_h)
+buttons.append(a_d)
+buttons.append(a_c)
+buttons.append(k_s)
+buttons.append(k_h)
+buttons.append(k_d)
+buttons.append(k_c)
 layout.addWidget(a_s, 0, 0)
 layout.addWidget(a_h, 0, 1)
 layout.addWidget(a_d, 0, 2)
@@ -156,6 +198,15 @@ layout.addWidget(k_s, 1, 0)
 layout.addWidget(k_h, 1, 1)
 layout.addWidget(k_d, 1, 2)
 layout.addWidget(k_c, 1, 3)
+
+def resetButtons():
+    for button in buttons:
+        button.reset()
+        button.update()
+
+resetButton = QPushButton("Reset")
+resetButton.clicked.connect(resetButtons)
+layout.addWidget(resetButton, 0, 4)
 
 window.show()
 window2.show()
