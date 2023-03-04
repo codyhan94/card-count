@@ -153,7 +153,6 @@ if __name__ == "__main__":
     layout.addWidget(button3, 2, 4)
     layout.addWidget(button2, 2, 5)
 
-
     window2 = QWidget()
     layout = QGridLayout(window2)
 
@@ -181,13 +180,6 @@ if __name__ == "__main__":
     layout.addWidget(suits3, 1, 2)
     layout.addWidget(suits4, 2, 0)
     layout.addWidget(suits5, 2, 2)
-# layout.addWidget(button1, 2, 6)
-# def on_click():
-#     alert = QMessageBox()
-#     alert.setText('clicked')
-#     alert.exec()
-
-# button.clicked.connect(on_click)
 
     window3 = QWidget()
     layout = QGridLayout(window3)
@@ -228,17 +220,18 @@ if __name__ == "__main__":
     layout.addWidget(ten_d, 2, 2)
     layout.addWidget(ten_c, 2, 3)
 
+    # text entry line for user-defined count
     entry = QLineEdit(window)
     def handleEntry():
         logging.debug(f"handling entry with input: {entry.text()}")
         count = int(entry.text())
-        for button in buttons:
+        for button in buttons:  # set all button counts according to to user input
             button.count = count
             button.update()
             button17.count = count * 3
             button17.update()
 
-    entry.returnPressed.connect(handleEntry)
+    entry.returnPressed.connect(handleEntry)  # optionally press enter to process input number
     layout.addWidget(entry, 1, 4, alignment=Qt.AlignmentFlag.AlignCenter)
 
     def handleReset(buttons, count=3):
@@ -247,6 +240,7 @@ if __name__ == "__main__":
         button17.update()
 
     resetButton = QPushButton("Reset")
+    # hook up line edit field to reset button for a more intuitive user experience
     resetButton.clicked.connect(
         lambda _: handleReset(buttons, int(entry.text()) if entry.text() else 3)
     )
