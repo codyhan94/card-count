@@ -4,8 +4,15 @@ import sys
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from typing import List
 
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QPixmap, QPainter
+from PyQt6.QtWidgets import (
+    QApplication,
+    QPushButton,
+    QLineEdit,
+    QAbstractButton,
+    QWidget,
+    QGridLayout,
+)
 from PyQt6.QtCore import Qt
 
 # maybe implement with an on-map and off-map
@@ -94,24 +101,24 @@ if __name__ == "__main__":
     layout = QGridLayout(window)
     buttons = []
 
-    button1 = PicButton(QPixmap("cards/ace_of_spades.png"))
-    button2 = PicButton(QPixmap("cards/2_of_spades.png"))
-    button3 = PicButton(QPixmap("cards/3_of_spades.png"))
-    button4 = PicButton(QPixmap("cards/4_of_spades.png"))
-    button5 = PicButton(QPixmap("cards/5_of_spades.png"))
-    button6 = PicButton(QPixmap("cards/6_of_spades.png"))
-    button7 = PicButton(QPixmap("cards/7_of_spades.png"))
-    button8 = PicButton(QPixmap("cards/8_of_spades.png"))
-    button9 = PicButton(QPixmap("cards/9_of_spades.png"))
-    button10 = PicButton(QPixmap("cards/10_of_spades.png"))
-    button11 = PicButton(QPixmap("cards/jack_of_spades2.png"))
-    button12 = PicButton(QPixmap("cards/queen_of_spades2.png"))
-    button13 = PicButton(QPixmap("cards/king_of_spades2.png"))
-    button14 = PicButton(QPixmap("cards/black_joker.png"))
-    button15 = PicButton(QPixmap("cards/red_joker.png"))
+    button1 = PicButton(QPixmap("cards/ace_of_spades.png"), count=args.num_cards)
+    button2 = PicButton(QPixmap("cards/2_of_spades.png"), count=args.num_cards)
+    button3 = PicButton(QPixmap("cards/3_of_spades.png"), count=args.num_cards)
+    button4 = PicButton(QPixmap("cards/4_of_spades.png"), count=args.num_cards)
+    button5 = PicButton(QPixmap("cards/5_of_spades.png"), count=args.num_cards)
+    button6 = PicButton(QPixmap("cards/6_of_spades.png"), count=args.num_cards)
+    button7 = PicButton(QPixmap("cards/7_of_spades.png"), count=args.num_cards)
+    button8 = PicButton(QPixmap("cards/8_of_spades.png"), count=args.num_cards)
+    button9 = PicButton(QPixmap("cards/9_of_spades.png"), count=args.num_cards)
+    button10 = PicButton(QPixmap("cards/10_of_spades.png"), count=args.num_cards)
+    button11 = PicButton(QPixmap("cards/jack_of_spades2.png"), count=args.num_cards)
+    button12 = PicButton(QPixmap("cards/queen_of_spades2.png"), count=args.num_cards)
+    button13 = PicButton(QPixmap("cards/king_of_spades2.png"), count=args.num_cards)
+    button14 = PicButton(QPixmap("cards/black_joker.png"), count=args.num_cards)
+    button15 = PicButton(QPixmap("cards/red_joker.png"), count=args.num_cards)
 
-    button16 = PicButton(QPixmap("cards/ace_of_hearts.png"))
-    button17 = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=9)
+    button16 = PicButton(QPixmap("cards/ace_of_hearts.png"), count=args.num_cards)
+    button17 = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=args.num_cards * 3)
 
     buttons = [
         button1,
@@ -183,18 +190,23 @@ if __name__ == "__main__":
 
     window3 = QWidget()
     layout = QGridLayout(window3)
-    a_s = PicButton(QPixmap("cards/ace_of_spades.png"))
-    a_h = PicButton(QPixmap("cards/ace_of_hearts.png"))
-    a_d = PicButton(QPixmap("cards/ace_of_diamonds.png"))
-    a_c = PicButton(QPixmap("cards/ace_of_clubs.png"))
-    k_s = PicButton(QPixmap("cards/king_of_spades2.png"))
-    k_h = PicButton(QPixmap("cards/king_of_hearts2.png"))
-    k_d = PicButton(QPixmap("cards/king_of_diamonds2.png"))
-    k_c = PicButton(QPixmap("cards/king_of_clubs2.png"))
-    ten_s = PicButton(QPixmap("cards/10_of_spades.png"))
-    ten_h = PicButton(QPixmap("cards/10_of_hearts.png"))
-    ten_d = PicButton(QPixmap("cards/10_of_diamonds.png"))
-    ten_c = PicButton(QPixmap("cards/10_of_clubs.png"))
+    a_s = PicButton(QPixmap("cards/ace_of_spades.png"), count=args.num_cards)
+    a_h = PicButton(QPixmap("cards/ace_of_hearts.png"), count=args.num_cards)
+    a_d = PicButton(QPixmap("cards/ace_of_diamonds.png"), count=args.num_cards)
+    a_c = PicButton(QPixmap("cards/ace_of_clubs.png"), count=args.num_cards)
+    k_s = PicButton(QPixmap("cards/king_of_spades2.png"), count=args.num_cards)
+    k_h = PicButton(QPixmap("cards/king_of_hearts2.png"), count=args.num_cards)
+    k_d = PicButton(QPixmap("cards/king_of_diamonds2.png"), count=args.num_cards)
+    k_c = PicButton(QPixmap("cards/king_of_clubs2.png"), count=args.num_cards)
+    ten_s = PicButton(QPixmap("cards/10_of_spades.png"), count=args.num_cards)
+    ten_h = PicButton(QPixmap("cards/10_of_hearts.png"), count=args.num_cards)
+    ten_d = PicButton(QPixmap("cards/10_of_diamonds.png"), count=args.num_cards)
+    ten_c = PicButton(QPixmap("cards/10_of_clubs.png"), count=args.num_cards)
+    five_s = PicButton(QPixmap("cards/5_of_spades.png"), count=args.num_cards)
+    five_h = PicButton(QPixmap("cards/5_of_hearts.png"), count=args.num_cards)
+    five_d = PicButton(QPixmap("cards/5_of_diamonds.png"), count=args.num_cards)
+    five_c = PicButton(QPixmap("cards/5_of_clubs.png"), count=args.num_cards)
+
     buttons.append(a_s)
     buttons.append(a_h)
     buttons.append(a_d)
@@ -207,6 +219,10 @@ if __name__ == "__main__":
     buttons.append(ten_h)
     buttons.append(ten_d)
     buttons.append(ten_c)
+    buttons.append(five_s)
+    buttons.append(five_h)
+    buttons.append(five_d)
+    buttons.append(five_c)
     layout.addWidget(a_s, 0, 0)
     layout.addWidget(a_h, 0, 1)
     layout.addWidget(a_d, 0, 2)
@@ -219,6 +235,10 @@ if __name__ == "__main__":
     layout.addWidget(ten_h, 2, 1)
     layout.addWidget(ten_d, 2, 2)
     layout.addWidget(ten_c, 2, 3)
+    layout.addWidget(five_s, 3, 0)
+    layout.addWidget(five_h, 3, 1)
+    layout.addWidget(five_d, 3, 2)
+    layout.addWidget(five_c, 3, 3)
 
     # text entry line for user-defined count
     entry = QLineEdit(window)
@@ -242,7 +262,7 @@ if __name__ == "__main__":
     resetButton = QPushButton("Reset")
     # hook up line edit field to reset button for a more intuitive user experience
     resetButton.clicked.connect(
-        lambda _: handleReset(buttons, int(entry.text()) if entry.text() else 3)
+        lambda _: handleReset(buttons, int(entry.text()) if entry.text() else args.num_cards)
     )
     layout.addWidget(resetButton, 0, 4)
 
