@@ -30,7 +30,7 @@ class SuitButton(QAbstractButton):
         painter.drawPixmap(event.rect(), self.pixmaps[self.i])
 
     def sizeHint(self):
-        return self.pixmaps[self.i].size() / 6
+        return self.pixmaps[self.i].size() / 9
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
@@ -71,7 +71,7 @@ class PicButton(QAbstractButton):
     #         self.count -= 1
 
     def sizeHint(self):
-        return self.pixmap.size() / 6
+        return self.pixmap.size() / 8
 
     def mousePressEvent(self, event):
         # override this to handle right clicking
